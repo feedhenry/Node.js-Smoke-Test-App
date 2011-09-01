@@ -1,0 +1,134 @@
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+  <link rel="stylesheet" type="text/css" href="css/theme.css" />
+
+  <div id="wrapper">
+    <div id="header">
+        <div id="topmenu">
+
+        </div>
+    </div>
+
+    <div id="content">
+      <div id="tab1" class="main_view default"></div>
+
+      <div id="tab2" class="main_view">
+        <input id="web_search_input" type="text">
+        <select id="web_search_amount">
+          <option value="5">Last 5</option>
+          <option value="10">Last 10</option>
+          <option value="15">Last 15</option>
+          <option value="30">Last 30</option>
+        </select>
+        <input type="button" id="web_search_button" value="Search">
+        <div id="web_search_results"></div>
+      </div>
+
+      <div id="tab3" class="main_view">
+        <input id="geo_search_input" type="text">
+        <input type="button" id="geo_search_button" value="Search">
+        <div id="maps_div"></div>
+      </div>
+      
+      <div id="tab4" class="main_view">
+        <label for="cache_expire">Cache Time (seconds):</label>
+        <input id="cache_expire" name="cache_expire" type="text"><br/> 
+        <input type="button" id="cache_update" value="Get Time">
+        <input type="button" id="cache_clear" value="Clear Cache">
+        <p>Cache Value: <span id="cache_output"></span></p>
+        <p>From Cache: <span id="cache_cached"></span></p>
+      </div>
+      
+      <div id="tab5" class="main_view"></div>
+      <div id="tab6" class="main_view">
+        <div id="feed_results"></div>
+      </div>
+       <div id="tab7" class="main_view">
+        <input id="echo_input" type="text">
+        <input type="button" id="echo_button" value="Echo">
+        <div id="echo_results"></div>
+      </div>
+      <!--
+      <div id="tab5" class="main_view">
+        <select id="ldap_group">
+          <option value="engineering">Engineering</option>
+          <option value="ops">Ops</option>
+          <option value="profservices">Professional Services</option>
+        </select>
+        <input type="button" id="ldap_search_button" value="Show Members">
+        <div id="ldap_members"></div>
+      </div>
+      -->      
+    </div>
+
+    <div id="footer">
+      <div id="bottommenu">
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <div id="hidden">
+    <div id="menu">
+      <div id="configjs" class="nav_item button_active">
+        <a href="#tab1" class="nav_target"></a>
+        <h2>config.js</h2>
+      </div>
+      
+      <div id="web" class="nav_item">
+        <a href="#tab2" class="nav_target"></a>
+        <h2>Web</h2>
+      </div>
+
+      <div id="geo" class="nav_item">
+        <a href="#tab3" class="nav_target"></a>        
+        <h2>Geo</h2>
+      </div>
+
+      <div id="cache" class="nav_item">
+        <a href="#tab4" class="nav_target"></a>        
+        <h2>Redis</h2>
+      </div>
+
+      <div id="xml" class="nav_item">
+        <a href="#tab5" class="nav_target"></a>        
+        <h2>XML</h2>
+      </div>
+
+      <div id="feed" class="nav_item">
+        <a href="#tab6" class="nav_target"></a>        
+        <h2>Feed</h2>
+      </div>
+ 
+      <div id="echo" class="nav_item">
+        <a href="#tab7" class="nav_target"></a>        
+        <h2>Echo</h2>
+      </div>
+
+      <!--
+      <div id="ldap" class="nav_item">
+        <a href="#tab5" class="nav_target"></a>        
+        <h2>LDAP</h2>
+      </div> 
+      -->     
+    </div>
+  </div>
+
+  <script type="text/javascript">var exports={};</script> 
+  <script type="text/javascript" src="config.js"></script>
+
+  <script type="text/javascript" src="js/prefs.js"></script>
+  <script type="text/javascript" src="js/init.js"></script>
+  <script type="text/javascript" src="js/util.js"></script>
+
+<!-- controllers -->
+  <script type="text/javascript" src="js/controller/config.js"></script>
+  <script type="text/javascript" src="js/controller/web.js"></script>
+  <script type="text/javascript" src="js/controller/geo.js"></script>
+  <script type="text/javascript" src="js/controller/cache.js"></script>
+  <script type="text/javascript" src="js/controller/xml.js"></script>
+  <script type="text/javascript" src="js/controller/feed.js"></script>
+  <script type="text/javascript" src="js/controller/echo.js"></script>
+
+<!-- <script type="text/javascript" src="js/controller/ldap.js"></script> -->
