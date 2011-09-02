@@ -25,8 +25,7 @@ var fhdb = {
       }
     }, function(res) {
         console.log(res);
-        var tabData = res;        
-        var paragraphData = tabData;
+        var paragraphData = JSON.stringify(res.fields);
     
         // Creating a paragraph tag for each data element.
         var paragraph = $('<p>');
