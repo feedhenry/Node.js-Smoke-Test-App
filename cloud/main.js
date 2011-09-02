@@ -138,3 +138,31 @@ exports.clearCache = function(params, callback) {
     return callback(err, {data: data});    
   });
 };
+
+exports.fhdbCall = function(params, callback) {
+  console.log("In dbCall()");
+  $fh.db({
+      "act" : "create",
+      "type" : "dbtest1",
+      "fields" : {
+        "firstName" : "Joe",
+        "lastName" : "Bloggs",
+        "address1" : "22 Blogger Lane",
+        "address2" : "Bloggsville",
+        "country" : "Bloggland",
+       "phone" : "555-123456"
+      }
+  }, function(err, res){
+    if(err) return callback(err);
+    $fh.db({
+      "act" : "read",
+      "type" : "dbtest1",
+      "guid" : res.guid
+    }, function(err, res){
+      if(err) return callback(err);
+      $fh.log(res);
+      return callback(null, res);
+    });
+  });   
+};
+

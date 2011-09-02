@@ -1,0 +1,8 @@
+lib-cov/
+dist/
+output/
+man/
+*~
+.project
+.settings/
+node_modules/
