@@ -24,7 +24,8 @@ var fhdb = {
         timestamp: new Date().getTime()
       }
     }, function(res) {
-        var tabData = res.fhdb;        
+        console.log(res);
+        var tabData = res;        
         var paragraphData = tabData;
     
         // Creating a paragraph tag for each data element.
