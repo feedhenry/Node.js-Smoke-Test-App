@@ -9,31 +9,23 @@ var util = require('util');
  * Trivial example of pulling in a shared config file.
  */
 exports.configCall = function(params, callback) {
-  try {
-    console.log("in configCall()");
-    var cfg = require("./config.js");
-    console.dir(cfg);
-    return callback(null, {data: cfg.config.cloudData});
-  }catch(err) {
-    return callback(err,null);
-  }
+  console.log("in configCall()");
+  var cfg = require("./config.js");
+  console.dir(cfg);
+  callback(null, {data: cfg.config.cloudData});
 };
 
 /* 'webCall' server side REST API method.
  * Example of using $fh.web, see http://docs.feedhenry.com/wiki/Web_Requests.
  */
 exports.webCall = function(params, callback) {
-  try {
-    console.log("in webCall() params: " + util.inspect(params));
-    var query = params.query != undefined ? params.query : 'ireland';
-    var opts = { 'url': 'http://search.twitter.com/search.json?q=' + query + '&rpp=5', 'method': 'GET'};
-    $fh.web(opts, function(err, webResp) {
-      if(err) return callback(err);
-      return callback(err, {data: JSON.parse(webResp.body)});
-    });
-  }catch(err) {
-    return callback(err,null);
-  }
+  console.log("in webCall() params: " + util.inspect(params));
+  var query = params.query != undefined ? params.query : 'ireland';
+  var opts = { 'url': 'http://search.twitter.com/search.json?q=' + query + '&rpp=5', 'method': 'GET'};
+  $fh.web(opts, function(err, webResp) {
+    if(err) return callback(err);
+    callback(err, {data: JSON.parse(webResp.body)});
+  });
 };
 
 /* Sample $fh.feed call */
@@ -44,7 +36,7 @@ exports.feedCall = function(params, callback) {
   };
   console.log("in feedCall");
   $fh.feed(feedParams, function(err, feedResp) {
-    return callback(err, feedResp);
+    callback(err, feedResp);
   });
 };
 
@@ -52,24 +44,19 @@ exports.feedCall = function(params, callback) {
  * Example of using a third party Node.js module, see https://github.com/feliperazeek/geonode.
  */
 exports.geoCall = function(params, callback) {
-  try {
-    console.log("in geoCall()");
-    var geo = require('geo');
-    var demoAddress = '885 6th Ave #15D New York, NY 10001';
-    var address = params.address != undefined ? params.address: demoAddress;
-    geo.geocoder(geo.google, address, false, function(formattedAddress, latitude, longitude) {
-      callback(null, {data: {'address': formattedAddress, 'latitude': latitude, 'longitude': longitude}});
-    });
-  }catch(err) {
-    return callback(err,null);
-  }
+  console.log("in geoCall()");
+  var geo = require('geo');
+  var demoAddress = '885 6th Ave #15D New York, NY 10001';
+  var address = params.address != undefined ? params.address: demoAddress;
+  geo.geocoder(geo.google, address, false, function(formattedAddress, latitude, longitude) {
+    callback(null, {data: {'address': formattedAddress, 'latitude': latitude, 'longitude': longitude}});
+  });
 };
 
 /* 'cacheCall' server side REST API method.
  * Example of using $fh.cache, see http://docs.feedhenry.com/wiki/Cache.
  */
 exports.cacheCall = function(params, callback) {
-  try {
     console.log("in cacheCall()");
     var expireTime = (params.expire != undefined && params.expire != "") ? params.expire: 10;
     var bypass = params.bypass != undefined ? params.bypass : false;
@@ -89,17 +76,13 @@ exports.cacheCall = function(params, callback) {
         return callback(null, {data: {time: d, cached: true}});
       }
     });
-  }catch(err) {
-    return callback(err,null);
-  }
 };
 
-
+/** XML processing, using the libxmljs module */
 exports.xmlCall = function(params, callback) {
-  try {
-    console.log("in xmlCall()");
-    var libxmljs = require("libxmljs");
-    var xml =  '<?xml version="1.0" encoding="UTF-8"?>' +
+  console.log("in xmlCall()");
+  var libxmljs = require("libxmljs");
+  var xml =  '<?xml version="1.0" encoding="UTF-8"?>' +
            '<root>' +
                '<child foo="bar">' +
                    '<grandchild baz="fizbuzz">grandchild content</grandchild>' +
@@ -107,36 +90,29 @@ exports.xmlCall = function(params, callback) {
                '<sibling>with content!</sibling>' +
            '</root>';
 
-    var xmlDoc = libxmljs.parseXmlString(xml);
+  var xmlDoc = libxmljs.parseXmlString(xml);
 
-    // xpath queries
-    var gchild = xmlDoc.get('//grandchild');
-    //console.log(gchild.text());  // prints "grandchild content"
+  // xpath queries
+  var gchild = xmlDoc.get('//grandchild');
+  //console.log(gchild.text());  // prints "grandchild content"
 
-    var children = xmlDoc.root().childNodes();
-    var child = children[0];
+  var children = xmlDoc.root().childNodes();
+  var child = children[0];
 
-    console.log(child.attr('foo').value()); // prints "bar"
-    return callback(null, {data: child.attr('foo').value()});
-  }catch(err) {
-    return callback(err,null);
-  }
+  console.log(child.attr('foo').value()); // prints "bar"
+  callback(null, {data: child.attr('foo').value()});
 };
 
 exports.echoCall = function(params, callback) {
-  try {
-    console.log("in echoCall() params: " + util.inspect(params));
-    console.log("Echo: " + params.echo);
-    callback(null, {echo: params.echo});
-  }catch(err) {
-    return callback(err,null);
-  }
+  console.log("in echoCall() params: " + util.inspect(params));
+  console.log("Echo: " + params.echo);
+  callback(null, {echo: params.echo});
 };
 
 exports.clearCache = function(params, callback) {
   console.log("in clearCache()");
   $fhserver.cache({act:'remove', key: 'time'}, function (err, data) {
-    return callback(err, {data: data});    
+    callback(err, {data: data});    
   });
 };
 
@@ -162,7 +138,7 @@ exports.fhdbCall = function(params, callback) {
     }, function(err, res){
       if(err) return callback(err);
       $fh.log(res);
-      return callback(null, res);
+      callback(null, res);
     });
   });   
 };
