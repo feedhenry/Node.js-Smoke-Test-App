@@ -28,6 +28,7 @@ exports.webCall = function(params, callback) {
     var query = params.query != undefined ? params.query : 'ireland';
     var opts = { 'url': 'http://search.twitter.com/search.json?q=' + query + '&rpp=5', 'method': 'GET'};
     $fh.web(opts, function(err, webResp) {
+      if(err) return callback(err);
       return callback(err, {data: JSON.parse(webResp.body)});
     });
   }catch(err) {
