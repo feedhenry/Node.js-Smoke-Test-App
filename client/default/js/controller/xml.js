@@ -1,28 +1,36 @@
 var xml = {
   show: function (container) {
+    container.empty();
+
     $fh.act({
       act:'xmlCall',
       req: {
         timestamp: new Date().getTime()
       }
     },
-      function(res) {
-        var tabData = res.data
-        container.empty();
-        
-        var paragraphData = tabData;
-    
-        // Creating a paragraph tag for each data element.
+      function(res) {      
         var paragraph = $('<p>');
-    
-        // Add the text to the paragraph tag.
-        paragraph.html("Data returned: " + paragraphData);
-    
-        // Add the paragraph tag to the tabContent
+        paragraph.html("libxml: " + res.data);
         container.append(paragraph);
         
     }, function(code,errorprops,params) {
       alert('Error retrieving web results: code: ' + code + " errorprops: " + errorprops + " params: " + params);
     });
+
+    $fh.act({
+      act:'xml2jsCall',
+      req: {
+        timestamp: new Date().getTime()
+      }
+    },
+      function(res) {      
+        var paragraph = $('<p>');
+        paragraph.html("xml2js: " + res.data);
+        container.append(paragraph);
+        
+    }, function(code,errorprops,params) {
+      alert('Error retrieving web results: code: ' + code + " errorprops: " + errorprops + " params: " + params);
+    });
+
   }
 };
