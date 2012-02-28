@@ -95,27 +95,27 @@ The 'geoCall' function looks up a location based on a default value or the value
 
 The Redis tab demonstrates caching on the server side. A cache time parameter is present to set the amount of time the data should be cached for. If the cache has expired it will generate the data again and cache it.
 
-exports.cacheCall = function(params, callback) {
-    console.log("in cacheCall()");
-    var expireTime = (params.expire != undefined && params.expire != "") ? params.expire: 10;
-    var bypass = params.bypass != undefined ? params.bypass : false;
-  
-    $fhserver.cache({act:'load', key: 'time'}, function (err, cachedTime) {
-      if (err) return callback(err);    
-      var currentTime = Date.now();
-      console.log("cachedTime: " + cachedTime);
+	exports.cacheCall = function(params, callback) {
+	    console.log("in cacheCall()");
+	    var expireTime = (params.expire != undefined && params.expire != "") ? params.expire: 10;
+	    var bypass = params.bypass != undefined ? params.bypass : false;
+	  
+	    $fhserver.cache({act:'load', key: 'time'}, function (err, cachedTime) {
+	      if (err) return callback(err);    
+	      var currentTime = Date.now();
+	      console.log("cachedTime: " + cachedTime);
 
-      if (bypass || cachedTime == undefined || (parseInt(cachedTime) + (expireTime * 1000)) < currentTime) {
-        $fhserver.cache({act: 'save', key: 'time', value: JSON.stringify(currentTime), expire: expireTime}, function (err) {          
-          var d = new Date(parseInt(currentTime));
-          return callback(err, {data: {time: d, cached: false}});
-        });
-      }else {
-        var d = new Date(parseInt(cachedTime));
-        return callback(undefined, {data: {time: d, cached: true}});
-      }
-    });
-};
+	      if (bypass || cachedTime == undefined || (parseInt(cachedTime) + (expireTime * 1000)) < currentTime) {
+	        $fhserver.cache({act: 'save', key: 'time', value: JSON.stringify(currentTime), expire: expireTime}, function (err) {          
+	          var d = new Date(parseInt(currentTime));
+	          return callback(err, {data: {time: d, cached: false}});
+	        });
+	      }else {
+	        var d = new Date(parseInt(cachedTime));
+	        return callback(undefined, {data: {time: d, cached: true}});
+	      }
+	    });
+	};
 
 ## XML
 
