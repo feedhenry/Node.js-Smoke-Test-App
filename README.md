@@ -4,7 +4,7 @@
 
 The Smoke Test is an application developed to demonstrate key parts of the FeedHenry server side functionality in Node.js.
 
-The app is made up of a number of tabs each of which demonstrates cloud call to some various Node.js code.
+The app is made up of a number of tabs each of which demonstrates cloud call to some various Node.js functions.
 
 ## Config
 
@@ -171,6 +171,32 @@ The XML tab demonstrates two different ways of parsing XML (libxmljs and xml2js)
 
 The 'feedCall' function will return a JSON representation of an RSS feed.
 
+Client
+
+	show: function (container) {
+		feed_results = $('#feed_results').empty();
+		$fh.act({
+		  act:'feedCall',
+		  req: {
+		    timestamp: new Date().getTime()
+		  }
+		},
+		  function(res) {        
+		    var results = JSON.parse(res.body).list;     
+		    for (ri=0, rl=results.length; ri<rl; ri++) {
+		      var result = results[ri];
+		      var paragraph = $('<p>');
+
+		      paragraph.html('Author: ' + result.fields.author + '<br/>' + result.fields.description);            
+		      feed_results.append(paragraph);
+		    }
+		}, function(code,errorprops,params) {
+		  alert('Error retrieving web results: code: ' + code + " errorprops: " + errorprops + " params: " + params);
+		});
+	}
+  
+Cloud
+
 	exports.feedCall = function(params, callback) {
 	  var feedParams = {          
 	    'link': 'http://www.feedhenry.com/feed',
@@ -184,7 +210,7 @@ The 'feedCall' function will return a JSON representation of an RSS feed.
 
 ## Echo
 
-The echo tab will return back the ‘echo’ parameter sent to it.
+The echo tab will return back the 'echo' parameter sent to it.
 
 Client
 
@@ -230,6 +256,37 @@ Cloud
 ## Data
 
 The data tab demonstrates creating an entity in a database. If the creation is successful it will do a read on the database and then return the entity. The client side code does a cloud call to the ‘fhdbCall’ function and then generates the HTML based on the response from this function.
+
+Client
+
+	doFhdb: function () {
+		var fhdb_input = $('#fhdb_input'),
+		    fhdb_results = $('#fhdb_results').empty();
+
+		$fh.act({
+		  act:'fhdbCall',
+		  req: {
+		    timestamp: new Date().getTime()
+		  }
+		}, function(res) {
+		    console.log(res);
+		    var paragraphData = JSON.stringify(res.fields);
+
+		    // Creating a paragraph tag for each data element.
+		    var paragraph = $('<p>');
+
+		    // Add the text to the paragraph tag.
+		    paragraph.html("Fhdb: " + paragraphData);
+
+		    // Add the paragraph tag to the tabContent
+		    fhdb_results.append(paragraph);
+		      
+		}, function(code,errorprops,params) {
+		   alert('Error retrieving fhdb: code: ' + code + " errorprops: " + errorprops + " params: " + params);
+		});
+	}
+
+Cloud
 
 	exports.fhdbCall = function(params, callback) {
 	  console.log("In dbCall()");
