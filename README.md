@@ -2,9 +2,7 @@
 
 ## Overview
 
-The Smoke Test is an application developed to demonstrate key parts of the FeedHenry server side functionality in Node.js.
-
-The app is made up of a number of tabs each of which demonstrates cloud call to some various Node.js functions.
+The Smoke Test is an application developed to demonstrate key parts of the FeedHenry server side functionality in Node.js. The app is made up of a number of tabs each of which demonstrates cloud call to some various Node.js functions.
 
 ## Config
 
@@ -194,7 +192,7 @@ Client
 		  alert('Error retrieving web results: code: ' + code + " errorprops: " + errorprops + " params: " + params);
 		});
 	}
-  
+
 Cloud
 
 	exports.feedCall = function(params, callback) {
