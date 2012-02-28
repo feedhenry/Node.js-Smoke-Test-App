@@ -29,7 +29,7 @@ This function includes the config.js file found in the shared directory and retu
 
 ## Web
 
-This will search Twitter based on the input from the textfield.
+In this example we use the $fh.web API to make a request to twitter. The results of this request are based on the input from the textfield on this tab.
 
 Client
 
