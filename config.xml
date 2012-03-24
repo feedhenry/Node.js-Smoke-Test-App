@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<widget id="com.feedhenry.damian.beresford.nodejsmastertestapp" version="1.0" width="320" height="480" start="index.html">
-<title>Node.js Master Test App.</title>
-<description>Full test app that exercises various node.js server side.</description>
-<author name="Damian Beresford" email="damian.beresford@feedhenry.com" url=""></author>
-<license></license>
-</widget>
