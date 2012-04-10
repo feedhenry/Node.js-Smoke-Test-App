@@ -173,3 +173,11 @@ exports.htmlCall = function(params, callback) {
   return callback(undefined, html, {'Content-Type' : 'text/html'});
 };
 
+exports.ldapCall = function(params, callback) {
+  var fhldap = require('fhldap.js');
+  var group = params.group === undefined ? 'Engineering' : params.group;
+
+  fhldap.ldapGroupMembers(group, function(err, engineers) {
+    return callback(err, {data: engineers});
+  });
+};
