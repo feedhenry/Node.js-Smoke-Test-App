@@ -5,6 +5,6 @@
     "geo" : "*",
     "libxmljs" : "*",
     "xml2js" : "*",
-    "node-LDAP" : "*"
+    "LDAP" : "*"
   }
 }
