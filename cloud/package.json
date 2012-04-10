@@ -4,6 +4,7 @@
   "dependencies" : { 
     "geo" : "*",
     "libxmljs" : "*",
-    "xml2js" : "*"       
+    "xml2js" : "*",
+    "node-LDAP" : "*"
   }
 }
