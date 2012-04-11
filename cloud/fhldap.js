@@ -5,6 +5,7 @@ console.log("ldap2")
 
 var cnx = new LDAP.Connection();
 var async = require('async');
+console.log("ldap3")
 
 exports.ldapMember = function(uid, callback) {
   cnx.search("dc=example,dc=com", "uid=" + uid,"*", function(err, memberDetails) {
