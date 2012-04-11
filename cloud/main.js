@@ -20,7 +20,7 @@ exports.configCall = function(params, callback) {
  */
 exports.webCall = function(params, callback) {
   console.log("in webCall() params: " + util.inspect(params));
-  var query = params.query != undefined ? params.query : 'ireland';
+  var query = params.query !== undefined ? params.query : 'ireland';
   var opts = { 'url': 'http://search.twitter.com/search.json?q=' + query + '&rpp=5', 'method': 'GET'};
   $fh.web(opts, function(err, webResp) {
     if(err) return callback(err);
@@ -47,7 +47,7 @@ exports.geoCall = function(params, callback) {
   console.log("in geoCall()");
   var geo = require('geo');
   var demoAddress = '885 6th Ave #15D New York, NY 10001';
-  var address = params.address != undefined ? params.address: demoAddress;
+  var address = params.address !== undefined ? params.address: demoAddress;
   geo.geocoder(geo.google, address, false, function(formattedAddress, latitude, longitude) {
     callback(undefined, {data: {'address': formattedAddress, 'latitude': latitude, 'longitude': longitude}});
   });
@@ -58,15 +58,15 @@ exports.geoCall = function(params, callback) {
  */
 exports.cacheCall = function(params, callback) {
     console.log("in cacheCall()");
-    var expireTime = (params.expire != undefined && params.expire != "") ? params.expire: 10;
-    var bypass = params.bypass != undefined ? params.bypass : false;
+    var expireTime = (params.expire !== undefined && params.expire !== "") ? params.expire: 10;
+    var bypass = params.bypass !== undefined ? params.bypass : false;
   
     $fhserver.cache({act:'load', key: 'time'}, function (err, cachedTime) {
       if (err) return callback(err);    
       var currentTime = Date.now();
       console.log("cachedTime: " + cachedTime);
 
-      if (bypass || cachedTime == undefined || (parseInt(cachedTime) + (expireTime * 1000)) < currentTime) {
+      if (bypass || cachedTime === undefined || (parseInt(cachedTime) + (expireTime * 1000)) < currentTime) {
         $fhserver.cache({act: 'save', key: 'time', value: JSON.stringify(currentTime), expire: expireTime}, function (err) {          
           var d = new Date(parseInt(currentTime));
           return callback(err, {data: {time: d, cached: false}});
@@ -173,3 +173,10 @@ exports.htmlCall = function(params, callback) {
   return callback(undefined, html, {'Content-Type' : 'text/html'});
 };
 
+exports.ldapCall = function(params, callback) {
+  var fhldap = require('fhldap.js');
+  var group = params.group === undefined ? 'Engineering' : params.group;
+  fhldap.ldapGroupMembers(group, function(err, engineers) {
+    return callback(err, {data: engineers});
+  });
+};
