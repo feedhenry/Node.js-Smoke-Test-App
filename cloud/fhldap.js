@@ -21,9 +21,7 @@ exports.ldapMember = function(uid, callback) {
     // Change these as appropriate for your domain
     var search_options = {
       base: 'dc=example,dc=com',
-      scope: '(uid=' + uid + ')',
-      filter: '',
-      attrs: ''
+      filter: '(uid=' + uid + ')'
     };
  
     ldap.search(search_options, function(err, memberDetails) {
@@ -40,8 +38,8 @@ exports.ldapGroupMembers = function(group, callback) {
     // Change these as appropriate for your domain
     var search_options = {
       base: 'dc=example,dc=com',
-      scope: '(cn=' + group + ')',
-      filter: '',
+      scope: '',
+      filter: '(cn=' + group + ')',
       attrs: ''
     };
 
