@@ -2,6 +2,7 @@ console.log("ldap1")
 var util = require('util');
 var LDAP = require('LDAP');
 console.log("ldap2")
+console.dir(LDAP);
 
 var cnx = new LDAP.Connection();
 var async = require('async');
