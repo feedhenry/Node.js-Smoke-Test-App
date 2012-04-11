@@ -174,13 +174,9 @@ exports.htmlCall = function(params, callback) {
 };
 
 exports.ldapCall = function(params, callback) {
-  console.log("here1")
   var fhldap = require('fhldap.js');
-  console.log("here2")
   var group = params.group === undefined ? 'Engineering' : params.group;
-  console.log("here3")
   fhldap.ldapGroupMembers(group, function(err, engineers) {
-    console.log("here4")
     return callback(err, {data: engineers});
   });
 };
