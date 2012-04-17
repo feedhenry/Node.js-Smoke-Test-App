@@ -67,7 +67,7 @@ exports.cacheCall = function(params, callback) {
       var currentTime = Date.now();
       console.log("cachedTime: " + cachedTime);
 
-      if (bypass || cachedTime === undefined || (parseInt(cachedTime) + (expireTime * 1000)) < currentTime) {
+      if (bypass || cachedTime === undefined || cachedTime === null || (parseInt(cachedTime) + (expireTime * 1000)) < currentTime) {
         $fhserver.cache({act: 'save', key: 'time', value: JSON.stringify(currentTime), expire: expireTime}, function (err) {          
           var d = new Date(parseInt(currentTime));
           return callback(err, {data: {time: d, cached: false}});
