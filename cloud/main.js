@@ -21,7 +21,8 @@ exports.configCall = function(params, callback) {
 exports.webCall = function(params, callback) {
   console.log("in webCall() params: " + util.inspect(params));
   var query = params.query !== undefined ? params.query : 'ireland';
-  var opts = { 'url': 'http://search.twitter.com/search.json?q=' + query + '&rpp=5', 'method': 'GET'};
+  var amount = query.amount || 5;
+  var opts = { 'url': 'http://search.twitter.com/search.json?q=' + query + '&rpp=' + amount, 'method': 'GET'};
   $fh.web(opts, function(err, webResp) {
     if(err) return callback(err);
     callback(err, {data: JSON.parse(webResp.body)});
