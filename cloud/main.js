@@ -184,5 +184,5 @@ exports.ldapCall = function(params, callback) {
 
 exports.envs = function(params, callback){
   var envs = process.env;
-  callback(err, env);
+  callback(undefined, env);
 }
