@@ -181,3 +181,8 @@ exports.ldapCall = function(params, callback) {
     return callback(err, {data: engineers});
   });
 };
+
+exports.envs = function(params, callback){
+  var envs = process.env;
+  callback(err, env);
+}
