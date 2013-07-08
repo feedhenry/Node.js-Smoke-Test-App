@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "dependencies" : { 
     "geo" : "0.0.3",
-    "libxmljs" : "0.6.1",
+    "libxmljs" : "0.8.1",
     "xml2js" : "0.1.14",
     "async" : "*"
   }
