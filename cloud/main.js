@@ -62,13 +62,13 @@ exports.cacheCall = function(params, callback) {
     var expireTime = (params.expire !== undefined && params.expire !== "") ? params.expire: 10;
     var bypass = params.bypass !== undefined ? params.bypass : false;
   
-    $fhserver.cache({act:'load', key: 'time'}, function (err, cachedTime) {
+    $fh.cache({act:'load', key: 'time'}, function (err, cachedTime) {
       if (err) return callback(err);    
       var currentTime = Date.now();
       console.log("cachedTime: " + cachedTime);
 
       if (bypass || cachedTime === undefined || cachedTime === null || (parseInt(cachedTime) + (expireTime * 1000)) < currentTime) {
-        $fhserver.cache({act: 'save', key: 'time', value: JSON.stringify(currentTime), expire: expireTime}, function (err) {          
+        $fh.cache({act: 'save', key: 'time', value: JSON.stringify(currentTime), expire: expireTime}, function (err) {          
           var d = new Date(parseInt(currentTime));
           return callback(err, {data: {time: d, cached: false}});
         });
@@ -131,7 +131,7 @@ exports.echoCall = function(params, callback) {
 
 exports.clearCache = function(params, callback) {
   console.log("in clearCache()");
-  $fhserver.cache({act:'remove', key: 'time'}, function (err, data) {
+  $fh.cache({act:'remove', key: 'time'}, function (err, data) {
     callback(err, {data: data});    
   });
 };
@@ -157,7 +157,7 @@ exports.fhdbCall = function(params, callback) {
       "guid" : res.guid
     }, function(err, res){
       if(err) return callback(err);
-      $fh.log(res);
+      console.log(res);
       callback(undefined, res);
     });
   });   
